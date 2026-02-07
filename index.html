@@ -1,0 +1,994 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valentinstag</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=Inter:wght@300;400;500&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #2d1b2e 0%, #3d2238 25%, #4d2a42 50%, #5d324c 75%, #6d3a56 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* Modern floating hearts with parallax */
+        .hearts-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+            overflow: hidden;
+        }
+
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(220, 120, 150, 0.25);
+            animation: float 20s infinite ease-in-out;
+            opacity: 0;
+            filter: blur(0.5px);
+            will-change: transform;
+        }
+
+        /* Decorative hearts in sections */
+        .decorative-heart {
+            position: absolute;
+            font-size: 30px;
+            color: rgba(232, 180, 200, 0.3);
+            animation: pulse 3s ease-in-out infinite;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 0.2;
+                transform: scale(1);
+            }
+            50% {
+                opacity: 0.4;
+                transform: scale(1.1);
+            }
+        }
+
+        .heart-decoration {
+            display: inline-block;
+            font-size: 1.2em;
+            color: rgba(232, 180, 200, 0.5);
+            margin: 0 0.5rem;
+            animation: floatHeart 4s ease-in-out infinite;
+        }
+
+        @keyframes floatHeart {
+            0%, 100% {
+                transform: translateY(0) rotate(0deg);
+            }
+            50% {
+                transform: translateY(-10px) rotate(5deg);
+            }
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(110vh) translateX(0) rotate(0deg) scale(0.8);
+                opacity: 0;
+            }
+            5% {
+                opacity: 0.2;
+            }
+            50% {
+                opacity: 0.25;
+            }
+            95% {
+                opacity: 0.2;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(100px) rotate(360deg) scale(1.2);
+                opacity: 0;
+            }
+        }
+
+        /* Parallax scroll effect for hearts */
+        .heart.parallax-slow {
+            animation-duration: 25s;
+        }
+
+        .heart.parallax-medium {
+            animation-duration: 20s;
+        }
+
+        .heart.parallax-fast {
+            animation-duration: 15s;
+        }
+
+        /* Main content sections */
+        .section {
+            position: relative;
+            z-index: 2;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 4rem 2rem;
+            max-width: 900px;
+            margin: 0 auto;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+        }
+
+        .section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Image sections - appear after scrolling */
+        .section[id*="ImageSection"] {
+            min-height: 80vh;
+            padding: 2rem;
+        }
+
+        .hero-section {
+            text-align: center;
+            width: 100%;
+        }
+
+        .hero-greeting {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 400;
+            color: #e8b4c8;
+            margin-bottom: 4rem;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #e8b4c8 0%, #d89bb5 50%, #c882a2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-text {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.2rem, 3vw, 1.8rem);
+            font-weight: 300;
+            color: #d4a5b8;
+            margin-bottom: 5rem;
+            line-height: 1.9;
+            letter-spacing: 0.01em;
+            max-width: 700px;
+        }
+
+        .story-text {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.1rem, 2.8vw, 1.6rem);
+            font-weight: 300;
+            color: #d4a5b8;
+            margin-bottom: 3rem;
+            line-height: 1.9;
+            letter-spacing: 0.01em;
+            max-width: 750px;
+            text-align: center;
+        }
+
+        .story-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 600;
+            color: #e8b4c8;
+            margin-bottom: 2rem;
+            line-height: 1.3;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #e8b4c8 0%, #d89bb5 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        /* Image styles */
+        .story-image {
+            width: 100%;
+            max-width: 450px;
+            height: auto;
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2),
+                        0 2px 6px rgba(232, 180, 200, 0.1);
+            margin: 2rem auto;
+            display: block;
+            opacity: 0;
+            transform: scale(0.95);
+            transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+            object-fit: cover;
+            filter: brightness(0.95);
+        }
+
+        .section.visible .story-image {
+            opacity: 0.85;
+            transform: scale(1);
+        }
+
+        /* Carousel styles */
+        .carousel-container {
+            position: relative;
+            max-width: 600px;
+            margin: 2rem auto;
+            width: 100%;
+        }
+
+        .carousel {
+            position: relative;
+            overflow: hidden;
+            border-radius: 15px;
+        }
+
+        .carousel-track {
+            display: flex;
+            transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+            will-change: transform;
+        }
+
+        .carousel-slide {
+            min-width: 100%;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .carousel-slide.active {
+            opacity: 0.85;
+        }
+
+        .carousel-slide img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2),
+                        0 2px 6px rgba(232, 180, 200, 0.1);
+            filter: brightness(0.95);
+        }
+
+        .carousel-nav {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .carousel-btn {
+            background: rgba(232, 180, 200, 0.2);
+            border: 2px solid rgba(232, 180, 200, 0.4);
+            color: #e8b4c8;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            font-size: 1.2rem;
+        }
+
+        .carousel-btn:hover {
+            background: rgba(232, 180, 200, 0.3);
+            border-color: rgba(232, 180, 200, 0.6);
+            transform: scale(1.1);
+        }
+
+        .carousel-btn:active {
+            transform: scale(0.95);
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 0.5rem;
+            justify-content: center;
+            margin-top: 1rem;
+        }
+
+        .carousel-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: rgba(232, 180, 200, 0.3);
+            border: none;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            padding: 0;
+        }
+
+        .carousel-dot.active {
+            background: rgba(232, 180, 200, 0.8);
+            transform: scale(1.3);
+        }
+
+        .hero-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 18px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3),
+                        0 2px 8px rgba(232, 180, 200, 0.15);
+            margin: 2rem auto;
+            display: block;
+            opacity: 0;
+            filter: brightness(0.95);
+            animation: fadeInUpImage 1.5s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInUpImage {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 0.85;
+                transform: translateY(0);
+            }
+        }
+
+        .response-image {
+            width: 100%;
+            max-width: 400px;
+            height: auto;
+            border-radius: 18px;
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.3),
+                        0 2px 8px rgba(232, 180, 200, 0.15);
+            margin: 2rem auto;
+            display: block;
+            opacity: 0;
+            filter: brightness(0.95);
+            animation: fadeInScaleImage 1s ease-out 0.5s forwards;
+        }
+
+        @keyframes fadeInScaleImage {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 0.85;
+                transform: scale(1);
+            }
+        }
+
+        .main-question {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 7vw, 5rem);
+            font-weight: 600;
+            color: #e8b4c8;
+            margin-bottom: 4rem;
+            line-height: 1.2;
+            letter-spacing: -0.03em;
+            background: linear-gradient(135deg, #e8b4c8 0%, #d89bb5 50%, #c882a2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .buttons-container {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 500;
+            padding: 1.2rem 3.5rem;
+            background: rgba(232, 180, 200, 0.2);
+            color: #e8b4c8;
+            border: 2px solid rgba(232, 180, 200, 0.4);
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 8px 32px rgba(232, 180, 200, 0.2),
+                        0 2px 8px rgba(0, 0, 0, 0.3);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            border-radius: 50%;
+            background: rgba(232, 180, 200, 0.2);
+            transform: translate(-50%, -50%);
+            transition: width 0.6s, height 0.6s;
+        }
+
+        .btn:hover::before {
+            width: 300px;
+            height: 300px;
+        }
+
+        .btn:hover {
+            transform: translateY(-4px) scale(1.02);
+            box-shadow: 0 12px 40px rgba(232, 180, 200, 0.4),
+                        0 4px 12px rgba(0, 0, 0, 0.4);
+            background: rgba(232, 180, 200, 0.3);
+            border-color: rgba(232, 180, 200, 0.6);
+            color: #f0c8d8;
+        }
+
+        .btn:active {
+            transform: translateY(-2px) scale(1);
+        }
+
+        .btn span {
+            position: relative;
+            z-index: 1;
+        }
+
+        .response-screen {
+            display: none;
+            text-align: center;
+            width: 100%;
+            min-height: 100vh;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .response-screen.active {
+            display: flex;
+            animation: fadeInScale 1s ease-out;
+        }
+
+        .response-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 400;
+            color: #e8b4c8;
+            line-height: 1.5;
+            letter-spacing: -0.02em;
+            background: linear-gradient(135deg, #e8b4c8 0%, #d89bb5 50%, #c882a2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            max-width: 800px;
+        }
+
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        /* Scroll indicator */
+        .scroll-indicator {
+            position: fixed;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 10;
+            opacity: 0.6;
+            animation: bounce 2s infinite;
+            transition: opacity 0.3s;
+        }
+
+        .scroll-indicator.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .scroll-indicator svg {
+            width: 24px;
+            height: 24px;
+            fill: #e8b4c8;
+        }
+
+        @keyframes bounce {
+            0%, 100% {
+                transform: translateX(-50%) translateY(0);
+            }
+            50% {
+                transform: translateX(-50%) translateY(-10px);
+            }
+        }
+
+        /* Mobile responsive */
+        @media (max-width: 768px) {
+            .section {
+                padding: 3rem 1.5rem;
+            }
+
+            .hero-greeting {
+                margin-bottom: 3rem;
+            }
+
+            .section-text {
+                margin-bottom: 4rem;
+            }
+
+            .main-question {
+                margin-bottom: 3rem;
+            }
+
+            .buttons-container {
+                flex-direction: column;
+                align-items: center;
+                gap: 1.5rem;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 300px;
+            }
+
+            .heart {
+                font-size: 18px;
+            }
+
+            .carousel-container {
+                max-width: 100%;
+            }
+
+            .carousel-slide img {
+                height: 300px;
+            }
+
+            .carousel-btn {
+                width: 35px;
+                height: 35px;
+                font-size: 1rem;
+            }
+
+            .story-image, .hero-image, .response-image {
+                max-width: 90%;
+                margin: 1.5rem auto;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .section {
+                padding: 2rem 1rem;
+            }
+        }
+
+        /* Reduced motion */
+        @media (prefers-reduced-motion: reduce) {
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="hearts-container" id="heartsContainer"></div>
+
+    <div class="section visible" id="heroSection">
+        <h1 class="hero-greeting">Hey Sofya,<br>ich hab da eine kleine Frage an dich …</h1>
+        <img src="assets/Snapchat-2066300112-b40a4831-3b74-4542-b885-169064cea95e.png" alt="Sofya und ich" class="hero-image" loading="eager">
+    </div>
+
+    <div class="section" id="apologySection">
+        <p class="story-text">Aber bevor ich dich das frage, möchte ich mich bei dir entschuldigen.<br><br>
+        Für den Streit, den wir gestern hatten. Es tut mir wirklich leid.<br><br>
+        Ich hätte anders reagieren sollen und dich nicht verletzen dürfen.</p>
+    </div>
+
+    <div class="section" id="apologyImageSection">
+        <img src="assets/Snapchat-299557890-a6504d52-6739-4d17-bd10-795d45c078a2.png" alt="Unsere Momente" class="story-image" loading="lazy">
+    </div>
+
+    <div class="section" id="storySection1">
+        <p class="story-text">Gestern Abend, nach unserem Streit, habe ich viel nachgedacht.<br><br>
+        Und mir wurde klar: Es tut mir so leid, weil du mir so wichtig bist.<br><br>
+        Streit passiert, aber was wirklich zählt, ist das, was danach kommt – und dass ich dir zeigen möchte, wie sehr du mir bedeutest.</p>
+    </div>
+
+    <div class="section" id="storyImageSection1">
+        <img src="assets/Snapchat-838381947-7def6020-c413-403d-bc2e-e98e909209b8.png" alt="Unsere Momente" class="story-image" loading="lazy">
+    </div>
+
+    <div class="section" id="storySection2">
+        <h2 class="story-title">Du bedeutest mir so viel <span class="heart-decoration">💕</span></h2>
+        <p class="story-text">Es gibt diese Momente mit dir, in denen alles klar wird. <span class="heart-decoration">💖</span><br><br>
+        Die Art, wie du lachst, wie du die Welt siehst, wie du einfach du bist – das macht jeden Tag zu etwas Besonderem. <span class="heart-decoration">💗</span><br><br>
+        Und das ist es, was mir gestern Abend klar geworden ist: Du bist die Person, die ich an meiner Seite haben möchte. <span class="heart-decoration">🤍</span></p>
+    </div>
+
+    <div class="section" id="storyImageSection2">
+        <div class="carousel-container" data-carousel="carousel1">
+            <div class="carousel">
+                <div class="carousel-track">
+                    <div class="carousel-slide active">
+                        <img src="assets/Snapchat-1973533481-d4f9f300-a53e-4287-a6d5-806a729b415f.png" alt="Unsere Momente" loading="lazy">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/Snapchat-177445359-a6f4d564-7c48-488b-9780-c8ae1be7dc71.png" alt="Unsere Momente" loading="lazy">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/Snapchat-411923123-5af93bcd-9920-41a4-9154-6141aa692511.png" alt="Unsere Momente" loading="lazy">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/Snapchat-718102445-9eeab594-e06c-40aa-8fd3-abb35211ec64.png" alt="Unsere Momente" loading="lazy">
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-nav">
+                <button class="carousel-btn carousel-prev" aria-label="Vorheriges Bild">‹</button>
+                <div class="carousel-dots"></div>
+                <button class="carousel-btn carousel-next" aria-label="Nächstes Bild">›</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="storySection3">
+        <p class="story-text">Valentinstag ist nur ein Tag. <span class="heart-decoration">💝</span><br><br>
+        Aber du bist für mich mehr als das. <span class="heart-decoration">💞</span><br><br>
+        Du bist die Person, mit der ich jeden Tag feiern möchte – auch nach schwierigen Momenten wie gestern, besonders weil wir sie gemeinsam überstehen. <span class="heart-decoration">❤️</span></p>
+    </div>
+
+    <div class="section" id="storyImageSection3">
+        <div class="carousel-container" data-carousel="carousel2">
+            <div class="carousel">
+                <div class="carousel-track">
+                    <div class="carousel-slide active">
+                        <img src="assets/dji_fly_20250709_185902_0_1752080342397_photo_low_quality-ef56bf2c-8658-4e49-b7e2-17a7ca9c31b7.png" alt="Unsere Momente" loading="lazy">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/IMG_20250510_193318353-d9afe5ca-1d2e-4779-a95b-3c9ba9e96b2f.png" alt="Unsere Momente" loading="lazy">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/IMG_20250804_083815544-820789f1-9da0-44d3-be8d-92bf75c9f366.png" alt="Unsere Momente" loading="lazy">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/Snapchat-1588456094-96f6ac44-e7e5-480b-971b-ed7fc0016c68.png" alt="Unsere Momente" loading="lazy">
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-nav">
+                <button class="carousel-btn carousel-prev" aria-label="Vorheriges Bild">‹</button>
+                <div class="carousel-dots"></div>
+                <button class="carousel-btn carousel-next" aria-label="Nächstes Bild">›</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="section" id="questionSection">
+        <h2 class="main-question">Willst du mein Valentine sein? <span class="heart-decoration">💕</span></h2>
+        
+        <div class="buttons-container">
+            <button class="btn" onclick="showResponse()"><span>Ja</span></button>
+            <button class="btn" onclick="showResponse()"><span>Natürlich</span></button>
+        </div>
+    </div>
+
+    <div class="response-screen" id="responseScreen">
+        <p class="response-text">Dann gehört dieser Valentinstag uns. <span class="heart-decoration">💖</span><br>Ich freu mich auf dich <span class="heart-decoration">🤍</span> <span class="heart-decoration">💕</span> <span class="heart-decoration">💗</span></p>
+        <div class="carousel-container" data-carousel="carousel3">
+            <div class="carousel">
+                <div class="carousel-track">
+                    <div class="carousel-slide active">
+                        <img src="assets/IMG_20250813_182134902-bbb3c8ce-ea49-4655-9e6e-1297b98d709b.png" alt="Unsere Momente" loading="lazy">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/Snapchat-2066300112-b40a4831-3b74-4542-b885-169064cea95e.png" alt="Unsere Momente" loading="lazy">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/IMG_20250510_193318353-d9afe5ca-1d2e-4779-a95b-3c9ba9e96b2f.png" alt="Unsere Momente" loading="lazy">
+                    </div>
+                    <div class="carousel-slide">
+                        <img src="assets/Snapchat-1588456094-96f6ac44-e7e5-480b-971b-ed7fc0016c68.png" alt="Unsere Momente" loading="lazy">
+                    </div>
+                </div>
+            </div>
+            <div class="carousel-nav">
+                <button class="carousel-btn carousel-prev" aria-label="Vorheriges Bild">‹</button>
+                <div class="carousel-dots"></div>
+                <button class="carousel-btn carousel-next" aria-label="Nächstes Bild">›</button>
+            </div>
+        </div>
+    </div>
+
+    <div class="scroll-indicator" id="scrollIndicator">
+        <svg viewBox="0 0 24 24">
+            <path d="M7.41 8.59L12 13.17l4.59-4.58L18 10l-6 6-6-6 1.41-1.41z"/>
+        </svg>
+    </div>
+
+    <script>
+        // Create floating hearts dynamically
+        function createHearts() {
+            const heartsContainer = document.getElementById('heartsContainer');
+            const heartEmojis = ['🤍', '💕', '💖', '💗', '💓', '❤️', '💝', '💞'];
+            const parallaxTypes = ['parallax-slow', 'parallax-medium', 'parallax-fast'];
+            
+            // Create 50 hearts for richer background
+            for (let i = 0; i < 50; i++) {
+                const heart = document.createElement('div');
+                heart.className = 'heart';
+                heart.textContent = heartEmojis[Math.floor(Math.random() * heartEmojis.length)];
+                
+                // Random position
+                heart.style.left = Math.random() * 100 + '%';
+                
+                // Random animation delay
+                heart.style.animationDelay = Math.random() * 10 + 's';
+                
+                // Random parallax speed
+                heart.classList.add(parallaxTypes[Math.floor(Math.random() * parallaxTypes.length)]);
+                
+                // Random size variation
+                const size = 0.5 + Math.random() * 1.0;
+                heart.style.fontSize = (20 + Math.random() * 16) + 'px';
+                
+                heartsContainer.appendChild(heart);
+            }
+        }
+
+        // Add decorative hearts to sections
+        function addDecorativeHearts() {
+            const sections = document.querySelectorAll('.section');
+            
+            sections.forEach(section => {
+                // Add 2-3 decorative hearts per section
+                const numHearts = 2 + Math.floor(Math.random() * 2);
+                
+                for (let i = 0; i < numHearts; i++) {
+                    const decorativeHeart = document.createElement('div');
+                    decorativeHeart.className = 'decorative-heart';
+                    decorativeHeart.textContent = ['🤍', '💕', '💖', '💗'][Math.floor(Math.random() * 4)];
+                    
+                    // Random position within section
+                    decorativeHeart.style.left = (10 + Math.random() * 80) + '%';
+                    decorativeHeart.style.top = (10 + Math.random() * 80) + '%';
+                    
+                    // Random animation delay
+                    decorativeHeart.style.animationDelay = Math.random() * 2 + 's';
+                    decorativeHeart.style.animationDuration = (2 + Math.random() * 2) + 's';
+                    
+                    section.appendChild(decorativeHeart);
+                }
+            });
+        }
+
+        // Intersection Observer for scroll animations
+        function initScrollAnimations() {
+            const sections = document.querySelectorAll('.section');
+            const observerOptions = {
+                threshold: 0.2,
+                rootMargin: '0px 0px -100px 0px'
+            };
+
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.classList.add('visible');
+                    }
+                });
+            }, observerOptions);
+
+            sections.forEach(section => {
+                observer.observe(section);
+            });
+        }
+
+        // Parallax effect for hearts on scroll
+        function initParallax() {
+            let lastScrollY = window.scrollY;
+            
+            window.addEventListener('scroll', () => {
+                const scrollY = window.scrollY;
+                const hearts = document.querySelectorAll('.heart');
+                
+                hearts.forEach((heart, index) => {
+                    const speed = (index % 3 + 1) * 0.1;
+                    const yPos = -(scrollY * speed);
+                    heart.style.transform += ` translateY(${yPos}px)`;
+                });
+                
+                lastScrollY = scrollY;
+            }, { passive: true });
+        }
+
+        // Hide scroll indicator when scrolled
+        function handleScrollIndicator() {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            
+            window.addEventListener('scroll', () => {
+                if (window.scrollY > 100) {
+                    scrollIndicator.classList.add('hidden');
+                } else {
+                    scrollIndicator.classList.remove('hidden');
+                }
+            }, { passive: true });
+        }
+
+        // Smooth scroll to next section
+        function initSmoothScroll() {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            scrollIndicator.addEventListener('click', () => {
+                const firstSection = document.querySelector('.section:not(.visible)');
+                if (firstSection) {
+                    firstSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                } else {
+                    window.scrollTo({
+                        top: window.innerHeight,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
+
+        // Hide scroll indicator when near bottom
+        function updateScrollIndicator() {
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            const questionSection = document.getElementById('questionSection');
+            
+            window.addEventListener('scroll', () => {
+                if (questionSection) {
+                    const rect = questionSection.getBoundingClientRect();
+                    if (rect.top < window.innerHeight * 0.8) {
+                        scrollIndicator.classList.add('hidden');
+                    } else if (window.scrollY < 100) {
+                        scrollIndicator.classList.remove('hidden');
+                    }
+                } else if (window.scrollY > 100) {
+                    scrollIndicator.classList.add('hidden');
+                }
+            }, { passive: true });
+        }
+
+        function showResponse() {
+            const sections = document.querySelectorAll('.section');
+            const responseScreen = document.getElementById('responseScreen');
+            const scrollIndicator = document.getElementById('scrollIndicator');
+            
+            sections.forEach(section => {
+                section.style.opacity = '0';
+                section.style.transform = 'scale(0.95)';
+                section.style.transition = 'opacity 0.6s ease-out, transform 0.6s ease-out';
+            });
+            
+            scrollIndicator.classList.add('hidden');
+            
+            setTimeout(() => {
+                sections.forEach(section => {
+                    section.style.display = 'none';
+                });
+                responseScreen.classList.add('active');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+            }, 600);
+        }
+
+        // Carousel functionality
+        function initCarousels() {
+            const carousels = document.querySelectorAll('.carousel-container');
+            
+            carousels.forEach(container => {
+                const track = container.querySelector('.carousel-track');
+                const slides = container.querySelectorAll('.carousel-slide');
+                const prevBtn = container.querySelector('.carousel-prev');
+                const nextBtn = container.querySelector('.carousel-next');
+                const dotsContainer = container.querySelector('.carousel-dots');
+                
+                let currentSlide = 0;
+                const totalSlides = slides.length;
+                
+                // Create dots
+                slides.forEach((_, index) => {
+                    const dot = document.createElement('button');
+                    dot.className = 'carousel-dot' + (index === 0 ? ' active' : '');
+                    dot.setAttribute('aria-label', `Gehe zu Bild ${index + 1}`);
+                    dot.addEventListener('click', () => goToSlide(index));
+                    dotsContainer.appendChild(dot);
+                });
+                
+                const dots = dotsContainer.querySelectorAll('.carousel-dot');
+                
+                function updateCarousel() {
+                    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+                    
+                    slides.forEach((slide, index) => {
+                        slide.classList.toggle('active', index === currentSlide);
+                    });
+                    
+                    dots.forEach((dot, index) => {
+                        dot.classList.toggle('active', index === currentSlide);
+                    });
+                }
+                
+                function goToSlide(index) {
+                    currentSlide = index;
+                    updateCarousel();
+                }
+                
+                function nextSlide() {
+                    currentSlide = (currentSlide + 1) % totalSlides;
+                    updateCarousel();
+                }
+                
+                function prevSlide() {
+                    currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
+                    updateCarousel();
+                }
+                
+                nextBtn.addEventListener('click', nextSlide);
+                prevBtn.addEventListener('click', prevSlide);
+                
+                // Touch/swipe support
+                let startX = 0;
+                let currentX = 0;
+                let isDragging = false;
+                
+                track.addEventListener('touchstart', (e) => {
+                    startX = e.touches[0].clientX;
+                    isDragging = true;
+                });
+                
+                track.addEventListener('touchmove', (e) => {
+                    if (!isDragging) return;
+                    currentX = e.touches[0].clientX;
+                });
+                
+                track.addEventListener('touchend', () => {
+                    if (!isDragging) return;
+                    isDragging = false;
+                    const diffX = startX - currentX;
+                    
+                    if (Math.abs(diffX) > 50) {
+                        if (diffX > 0) {
+                            nextSlide();
+                        } else {
+                            prevSlide();
+                        }
+                    }
+                });
+                
+                // Initialize
+                updateCarousel();
+            });
+        }
+
+        // Initialize everything
+        document.addEventListener('DOMContentLoaded', () => {
+            createHearts();
+            addDecorativeHearts();
+            initScrollAnimations();
+            initParallax();
+            handleScrollIndicator();
+            initSmoothScroll();
+            updateScrollIndicator();
+            initCarousels();
+        });
+    </script>
+</body>
+</html>
