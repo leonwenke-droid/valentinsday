@@ -20,9 +20,53 @@
             min-height: 100vh;
             overflow-x: hidden;
             position: relative;
+        }
+
+        /* Floating checklist button */
+        .floating-checklist-btn {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            z-index: 1000;
+            background: rgba(232, 180, 200, 0.25);
+            border: 2px solid rgba(232, 180, 200, 0.5);
+            border-radius: 50px;
+            padding: 0.8rem 1.5rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 24px rgba(232, 180, 200, 0.3),
+                        0 2px 8px rgba(0, 0, 0, 0.2);
             display: flex;
             align-items: center;
-            justify-content: center;
+            gap: 0.5rem;
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            font-weight: 500;
+            color: #e8b4c8;
+            animation: floatButton 3s ease-in-out infinite;
+        }
+
+        @keyframes floatButton {
+            0%, 100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-5px);
+            }
+        }
+
+        .floating-checklist-btn:hover {
+            background: rgba(232, 180, 200, 0.35);
+            border-color: rgba(232, 180, 200, 0.7);
+            transform: translateY(-3px);
+            box-shadow: 0 12px 32px rgba(232, 180, 200, 0.4),
+                        0 4px 12px rgba(0, 0, 0, 0.3);
+        }
+
+        .floating-checklist-btn:active {
+            transform: translateY(-1px);
         }
 
         /* Floating hearts */
@@ -75,6 +119,7 @@
             flex-direction: column;
             align-items: center;
             justify-content: center;
+            min-height: 100vh;
         }
 
         .main-title {
@@ -335,6 +380,102 @@
             gap: 1rem;
         }
 
+        /* Groningen interactive section */
+        .groningen-highlight {
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.3), rgba(255, 192, 203, 0.2));
+            padding: 1.5rem 1.5rem;
+            border-radius: 20px;
+            border: 2px solid rgba(255, 182, 193, 0.5);
+            display: inline-block;
+            font-weight: 500;
+            box-shadow: 0 4px 15px rgba(255, 182, 193, 0.3);
+            line-height: 1.8;
+            margin: 1rem 0;
+            position: relative;
+            overflow: hidden;
+            animation: highlightPulse 3s ease-in-out infinite;
+        }
+
+        @keyframes highlightPulse {
+            0%, 100% {
+                box-shadow: 0 4px 15px rgba(255, 182, 193, 0.3);
+            }
+            50% {
+                box-shadow: 0 6px 25px rgba(255, 182, 193, 0.5);
+            }
+        }
+
+        .groningen-highlight::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 182, 193, 0.2) 0%, transparent 70%);
+            animation: rotate 15s linear infinite;
+        }
+
+        .edibles-choice {
+            margin-top: 2rem;
+            padding: 2rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            border: 2px solid rgba(255, 182, 193, 0.4);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .edibles-question {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 600;
+            color: #fff;
+            margin-bottom: 1rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .edibles-options {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-top: 1.5rem;
+        }
+
+        .edible-option-btn {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1rem, 2.2vw, 1.2rem);
+            font-weight: 500;
+            padding: 1rem 2rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: #fff;
+            border: 2px solid rgba(255, 255, 255, 0.4);
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+        .edible-option-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+            border-color: rgba(255, 255, 255, 0.6);
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 6px 20px rgba(255, 182, 193, 0.4);
+        }
+
+        .edible-option-btn.selected {
+            background: rgba(255, 182, 193, 0.4);
+            border-color: rgba(255, 182, 193, 0.8);
+            box-shadow: 0 8px 25px rgba(255, 182, 193, 0.5);
+        }
+
+        .edible-option-btn:active {
+            transform: translateY(-1px) scale(1.02);
+        }
+
         /* Food preference section */
         .food-preference-section {
             position: relative;
@@ -402,6 +543,172 @@
             box-shadow: 0 8px 25px rgba(232, 180, 200, 0.4);
         }
 
+        /* Checklist section */
+        .checklist-section {
+            position: relative;
+            width: 100%;
+            max-width: 700px;
+            margin: 3rem auto;
+            padding: 3rem 2rem;
+            background: rgba(232, 180, 200, 0.15);
+            border: 2px solid rgba(232, 180, 200, 0.3);
+            border-radius: 30px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out 1.2s both;
+        }
+
+        .checklist-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.8rem, 4vw, 2.5rem);
+            font-weight: 600;
+            color: #e8b4c8;
+            margin-bottom: 2rem;
+            text-align: center;
+        }
+
+        .checklist-items {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            border: 1px solid rgba(232, 180, 200, 0.2);
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+
+        .checklist-item:hover {
+            background: rgba(255, 255, 255, 0.15);
+            border-color: rgba(232, 180, 200, 0.4);
+            transform: translateX(5px);
+        }
+
+        .checklist-checkbox {
+            width: 24px;
+            height: 24px;
+            border: 2px solid rgba(232, 180, 200, 0.6);
+            border-radius: 6px;
+            background: rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.3s ease;
+        }
+
+        .checklist-checkbox.checked {
+            background: rgba(232, 180, 200, 0.6);
+            border-color: rgba(232, 180, 200, 0.8);
+        }
+
+        .checklist-checkbox.checked::after {
+            content: '✓';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            color: #fff;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .checklist-label {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 400;
+            color: #d4a5b8;
+            flex: 1;
+            user-select: none;
+        }
+
+        .checklist-item.checked .checklist-label {
+            color: #e8b4c8;
+            text-decoration: line-through;
+            opacity: 0.7;
+        }
+
+        .checklist-item.special {
+            background: rgba(232, 180, 200, 0.2);
+            border-color: rgba(232, 180, 200, 0.5);
+            font-weight: 500;
+        }
+
+        .checklist-item.special .checklist-label {
+            color: #e8b4c8;
+            font-size: clamp(1.2rem, 2.8vw, 1.5rem);
+        }
+
+        .checklist-time {
+            margin-top: 2rem;
+            padding: 1.5rem;
+            background: rgba(232, 180, 200, 0.15);
+            border: 2px solid rgba(232, 180, 200, 0.4);
+            border-radius: 20px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+        }
+
+        .checklist-time-text {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 600;
+            color: #e8b4c8;
+            line-height: 1.6;
+        }
+
+        /* Blush effect */
+        .blush-effect {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 20%, rgba(255, 182, 193, 0.4) 0%, rgba(255, 192, 203, 0.3) 25%, transparent 50%),
+                        radial-gradient(circle at 70% 20%, rgba(255, 182, 193, 0.4) 0%, rgba(255, 192, 203, 0.3) 25%, transparent 50%);
+            pointer-events: none;
+            z-index: 9999;
+            opacity: 0;
+            animation: blushFade 2s ease-out;
+        }
+
+        @keyframes blushFade {
+            0% {
+                opacity: 0;
+            }
+            30% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+            }
+        }
+
+        .checklist-item.blush {
+            animation: itemBlush 1s ease-out;
+        }
+
+        @keyframes itemBlush {
+            0%, 100% {
+                background: rgba(255, 255, 255, 0.1);
+            }
+            50% {
+                background: rgba(255, 182, 193, 0.3);
+                box-shadow: 0 0 20px rgba(255, 182, 193, 0.5);
+            }
+        }
+
         .message {
             font-family: 'Playfair Display', serif;
             font-size: clamp(1.5rem, 4vw, 2.5rem);
@@ -415,6 +722,17 @@
 
         /* Mobile responsive */
         @media (max-width: 768px) {
+            .floating-checklist-btn {
+                top: 15px;
+                right: 15px;
+                padding: 0.7rem 1.2rem;
+                font-size: 0.85rem;
+            }
+
+            .floating-checklist-btn span:last-child {
+                display: none;
+            }
+
             .countdown-container {
                 gap: 1rem;
             }
@@ -427,6 +745,11 @@
     </style>
 </head>
 <body>
+    <div class="floating-checklist-btn" onclick="scrollToChecklist(event)">
+        <span>📋</span>
+        <span>Checkliste</span>
+    </div>
+
     <div class="hearts-container" id="heartsContainer"></div>
 
     <div class="container">
@@ -457,7 +780,22 @@
             <div class="teaser-content">
                 <h2 class="teaser-title">Ein kleiner Vorgeschmack <span class="heart-decoration">💖</span></h2>
                 <p class="teaser-text">Ich habe schon etwas Besonderes für uns geplant.<br><br>
-                Ab 16 Uhr erwartet uns Entspannung und Romantik in den Thermen von Bad Nieuschanz.</p>
+                <div class="groningen-highlight">
+                    <strong style="font-size: 1.1em;">🚂 Unser Trip nach Groningen</strong><br><br>
+                    Bevor wir in die Therme fahren, machen wir einen kleinen Abenteuer-Trip nach Groningen!<br>
+                    Dort erwartet uns eine entspannte Stadterkundung durch die schönen Gassen und gemütlichen Cafés.<br><br>
+                    <span style="font-style: italic; opacity: 0.95;">Und hier kommt der spannende Teil...</span>
+                </div>
+                <div class="edibles-choice">
+                    <p class="edibles-question">Sollen wir Weed-Edibles mitnehmen? 🍪</p>
+                    <p style="color: rgba(255, 255, 255, 0.9); font-size: clamp(1rem, 2vw, 1.2rem); margin-bottom: 1rem;">Wir können Brownies oder Cookies mitnehmen und später gemeinsam ausprobieren – ganz entspannt und nur wenn du Lust hast.</p>
+                    <div class="edibles-options">
+                        <button class="edible-option-btn" onclick="selectEdibleOption(this, 'Ja, gerne!')">Ja, gerne! 🍃</button>
+                        <button class="edible-option-btn" onclick="selectEdibleOption(this, 'Nein, danke')">Nein, danke</button>
+                        <button class="edible-option-btn" onclick="selectEdibleOption(this, 'Mal schauen')">Mal schauen 🤔</button>
+                    </div>
+                </div>
+                <p class="teaser-text" style="margin-top: 2rem;">Ab 16 Uhr erwartet uns dann Entspannung und Romantik in den Thermen von Bad Nieuschanz.</p>
                 <p class="teaser-includes">Im Eintrittspreis enthalten: Zugang zu allen Thermalbecken, Saunalandschaft, Whirlpools, Entspannungsbereiche und Ruheräume.</p>
                 <div class="teaser-time-box">
                     <div class="teaser-time-label">Start</div>
@@ -475,6 +813,64 @@
             <div class="food-options">
                 <button class="food-option-btn" onclick="sendFoodPreference('Essen gehen')">Essen gehen</button>
                 <button class="food-option-btn" onclick="sendFoodPreference('Essen bestellen')">Essen bestellen</button>
+            </div>
+        </div>
+
+        <div class="checklist-section" id="checklist">
+            <h2 class="checklist-title">Checkliste <span class="heart-decoration">📋</span></h2>
+            <p class="teaser-text" style="font-size: clamp(1rem, 2.2vw, 1.2rem); margin-bottom: 1.5rem; opacity: 0.9;">Was du mitnehmen solltest:</p>
+            <ul class="checklist-items">
+                <li class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <span class="checklist-label">Bademantel</span>
+                </li>
+                <li class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <span class="checklist-label">Handtuch</span>
+                </li>
+                <li class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <span class="checklist-label">Badeschuhe</span>
+                </li>
+                <li class="checklist-item" onclick="toggleChecklistItem(this, true)">
+                    <div class="checklist-checkbox"></div>
+                    <span class="checklist-label">weißer Bikini</span>
+                </li>
+                <li class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <span class="checklist-label">Übernachtungsutensilien (Zahnbürste, etc.)</span>
+                </li>
+                <li class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <span class="checklist-label">Wechselklamotten</span>
+                </li>
+                <li class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <span class="checklist-label">Pyjama</span>
+                </li>
+                <li class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <span class="checklist-label">Handy & Ladekabel</span>
+                </li>
+                <li class="checklist-item" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <span class="checklist-label">Geldbeutel</span>
+                </li>
+                <li class="checklist-item" onclick="toggleChecklistItem(this, true)">
+                    <div class="checklist-checkbox"></div>
+                    <span class="checklist-label">Vibrator</span>
+                </li>
+                <li class="checklist-item special" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <span class="checklist-label">Liebe <span class="heart-decoration">💕</span></span>
+                </li>
+                <li class="checklist-item special" onclick="toggleChecklistItem(this)">
+                    <div class="checklist-checkbox"></div>
+                    <span class="checklist-label">Gute Laune <span class="heart-decoration">😊</span></span>
+                </li>
+            </ul>
+            <div class="checklist-time">
+                <p class="checklist-time-text">Bitte bis <strong>10:45 Uhr</strong> fertig sein! ⏰</p>
             </div>
         </div>
 
@@ -588,6 +984,63 @@
                     btn.disabled = false;
                 });
             }
+        }
+
+        // Toggle checklist item
+        function toggleChecklistItem(item, showBlush = false) {
+            const checkbox = item.querySelector('.checklist-checkbox');
+            const isChecked = checkbox.classList.contains('checked');
+            
+            if (isChecked) {
+                checkbox.classList.remove('checked');
+                item.classList.remove('checked');
+            } else {
+                checkbox.classList.add('checked');
+                item.classList.add('checked');
+            }
+            
+            // Show blush effect for specific items
+            if (showBlush && !isChecked) {
+                showBlushEffect();
+                item.classList.add('blush');
+                setTimeout(() => {
+                    item.classList.remove('blush');
+                }, 1000);
+            }
+        }
+
+        // Show blush effect
+        function showBlushEffect() {
+            const blush = document.createElement('div');
+            blush.className = 'blush-effect';
+            document.body.appendChild(blush);
+            
+            setTimeout(() => {
+                blush.remove();
+            }, 2000);
+        }
+
+        // Scroll to checklist
+        function scrollToChecklist(event) {
+            if (event) {
+                event.preventDefault();
+            }
+            const checklist = document.getElementById('checklist');
+            if (checklist) {
+                checklist.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+        }
+
+        // Select edible option
+        function selectEdibleOption(button, choice) {
+            const buttons = document.querySelectorAll('.edible-option-btn');
+            buttons.forEach(btn => {
+                btn.classList.remove('selected');
+            });
+            button.classList.add('selected');
+            
+            // Optional: Could send this choice via SMS or store it
+            console.log('Edible choice:', choice);
         }
 
         // Initialize
