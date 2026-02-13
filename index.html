@@ -184,15 +184,56 @@
             }
         }
 
+        .teaser-box {
+            background: rgba(232, 180, 200, 0.15);
+            border: 2px solid rgba(232, 180, 200, 0.3);
+            border-radius: 25px;
+            padding: 2.5rem;
+            margin: 3rem auto;
+            max-width: 700px;
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            animation: fadeInUp 1s ease-out 0.9s both;
+        }
+
+        .teaser-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
+            font-weight: 600;
+            color: #e8b4c8;
+            margin-bottom: 1rem;
+            line-height: 1.4;
+        }
+
+        .teaser-text {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
+            font-weight: 300;
+            color: #d4a5b8;
+            line-height: 1.8;
+            margin-bottom: 1rem;
+        }
+
+        .teaser-time {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 400;
+            color: #e8b4c8;
+            margin-top: 1rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(232, 180, 200, 0.2);
+        }
+
         .message {
             font-family: 'Playfair Display', serif;
             font-size: clamp(1.5rem, 4vw, 2.5rem);
             font-weight: 400;
             color: #e8b4c8;
-            margin-top: 4rem;
+            margin-top: 2rem;
             line-height: 1.6;
             max-width: 700px;
-            animation: fadeInUp 1s ease-out 1s both;
+            animation: fadeInUp 1s ease-out 1.2s both;
         }
 
         /* Mobile responsive */
@@ -233,6 +274,13 @@
                 <span class="countdown-number" id="seconds">0</span>
                 <span class="countdown-label">Sekunden</span>
             </div>
+        </div>
+
+        <div class="teaser-box">
+            <h2 class="teaser-title">Ein kleiner Vorgeschmack <span class="heart-decoration">💖</span></h2>
+            <p class="teaser-text">Ich habe schon etwas Besonderes für uns geplant.<br><br>
+            Ab 16 Uhr erwartet uns Entspannung und Romantik in den Thermen von Bad Nieuschanz.</p>
+            <p class="teaser-time">16:00 Uhr <span class="heart-decoration">💕</span></p>
         </div>
 
         <p class="message">Ich freu mich auf dich <span class="heart-decoration">🤍</span></p>
