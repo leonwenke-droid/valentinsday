@@ -184,45 +184,133 @@
             }
         }
 
-        .teaser-box {
-            background: rgba(232, 180, 200, 0.15);
-            border: 2px solid rgba(232, 180, 200, 0.3);
-            border-radius: 25px;
-            padding: 2.5rem;
-            margin: 3rem auto;
-            max-width: 700px;
-            backdrop-filter: blur(20px);
-            -webkit-backdrop-filter: blur(20px);
-            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
-            animation: fadeInUp 1s ease-out 0.9s both;
+        /* Teaser Section - Completely different design */
+        .teaser-section {
+            position: relative;
+            width: 100%;
+            margin: 4rem 0;
+            padding: 4rem 2rem;
+            background: linear-gradient(135deg, rgba(255, 182, 193, 0.2) 0%, rgba(255, 192, 203, 0.15) 50%, rgba(255, 182, 193, 0.2) 100%);
+            border-radius: 40px;
+            border: 3px solid rgba(255, 182, 193, 0.4);
+            box-shadow: 
+                0 20px 60px rgba(255, 182, 193, 0.3),
+                inset 0 0 40px rgba(255, 182, 193, 0.1);
+            overflow: hidden;
+            animation: teaserReveal 1.2s ease-out 0.9s both;
+        }
+
+        .teaser-section::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 182, 193, 0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes teaserReveal {
+            from {
+                opacity: 0;
+                transform: scale(0.9) translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1) translateY(0);
+            }
+        }
+
+        .teaser-content {
+            position: relative;
+            z-index: 2;
+            max-width: 800px;
+            margin: 0 auto;
         }
 
         .teaser-title {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(1.5rem, 3.5vw, 2.2rem);
-            font-weight: 600;
-            color: #e8b4c8;
-            margin-bottom: 1rem;
-            line-height: 1.4;
+            font-size: clamp(2.5rem, 6vw, 4.5rem);
+            font-weight: 700;
+            background: linear-gradient(135deg, #ff6b9d 0%, #ff8fab 50%, #ffb6c1 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 2rem;
+            line-height: 1.2;
+            text-shadow: 0 0 30px rgba(255, 182, 193, 0.5);
+            animation: titleGlow 3s ease-in-out infinite;
+        }
+
+        @keyframes titleGlow {
+            0%, 100% {
+                filter: brightness(1);
+            }
+            50% {
+                filter: brightness(1.2);
+            }
         }
 
         .teaser-text {
             font-family: 'Inter', sans-serif;
-            font-size: clamp(1.1rem, 2.5vw, 1.4rem);
-            font-weight: 300;
-            color: #d4a5b8;
-            line-height: 1.8;
-            margin-bottom: 1rem;
+            font-size: clamp(1.3rem, 3vw, 1.8rem);
+            font-weight: 400;
+            color: #fff;
+            line-height: 1.9;
+            margin-bottom: 2rem;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .teaser-time-box {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 40px rgba(255, 182, 193, 0.4);
+            border: 2px solid rgba(255, 182, 193, 0.6);
+            animation: timePulse 2s ease-in-out infinite;
+        }
+
+        @keyframes timePulse {
+            0%, 100% {
+                transform: scale(1);
+                box-shadow: 0 10px 40px rgba(255, 182, 193, 0.4);
+            }
+            50% {
+                transform: scale(1.02);
+                box-shadow: 0 15px 50px rgba(255, 182, 193, 0.6);
+            }
+        }
+
+        .teaser-time-label {
+            font-family: 'Inter', sans-serif;
+            font-size: clamp(0.9rem, 2vw, 1.1rem);
+            font-weight: 500;
+            color: #ff6b9d;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            margin-bottom: 0.5rem;
         }
 
         .teaser-time {
             font-family: 'Playfair Display', serif;
-            font-size: clamp(1.3rem, 3vw, 1.8rem);
-            font-weight: 400;
-            color: #e8b4c8;
-            margin-top: 1rem;
-            padding-top: 1rem;
-            border-top: 1px solid rgba(232, 180, 200, 0.2);
+            font-size: clamp(2rem, 5vw, 3.5rem);
+            font-weight: 700;
+            color: #ff6b9d;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 1rem;
         }
 
         .message {
@@ -276,11 +364,19 @@
             </div>
         </div>
 
-        <div class="teaser-box">
-            <h2 class="teaser-title">Ein kleiner Vorgeschmack <span class="heart-decoration">💖</span></h2>
-            <p class="teaser-text">Ich habe schon etwas Besonderes für uns geplant.<br><br>
-            Ab 16 Uhr erwartet uns Entspannung und Romantik in den Thermen von Bad Nieuschanz.</p>
-            <p class="teaser-time">16:00 Uhr <span class="heart-decoration">💕</span></p>
+        <div class="teaser-section">
+            <div class="teaser-content">
+                <h2 class="teaser-title">Ein kleiner Vorgeschmack <span class="heart-decoration">💖</span></h2>
+                <p class="teaser-text">Ich habe schon etwas Besonderes für uns geplant.<br><br>
+                Ab 16 Uhr erwartet uns Entspannung und Romantik in den Thermen von Bad Nieuschanz.</p>
+                <div class="teaser-time-box">
+                    <div class="teaser-time-label">Start</div>
+                    <div class="teaser-time">
+                        <span>16:00</span>
+                        <span class="heart-decoration">💕</span>
+                    </div>
+                </div>
+            </div>
         </div>
 
         <p class="message">Ich freu mich auf dich <span class="heart-decoration">🤍</span></p>
